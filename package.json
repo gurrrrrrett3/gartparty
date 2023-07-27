@@ -1,0 +1,21 @@
+{
+  "name": "gartparty",
+  "version": "1.0.0",
+  "description": "an open souce Mario Party clone for the hell of it",
+  "main": "index.js",
+  "scripts": {
+    "dev": "./gartparty dev",
+    "install": "./gartparty install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}

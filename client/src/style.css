@@ -1,0 +1,20 @@
+body {
+  background-color: black;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#render {
+  z-index: -1;
+}
+
+#ui {
+  z-index: 1;
+}
