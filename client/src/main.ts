@@ -2,10 +2,12 @@ import "./style.css";
 import * as three from "three";
 import Logger from "./util/logger";
 import Net from "./net/net";
+import HudManager from "./ui/hud/hudManager";
+import FpsHud from "./ui/hud/elements/fps";
 
 // debug
 
-(globalThis as any).DEBUG = true
+(globalThis as any).DEBUG = true;
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <canvas id="render"></canvas>
@@ -23,6 +25,9 @@ export default class Main {
   public camera: three.PerspectiveCamera;
 
   public net: Net;
+
+  public lastFrame: number = 0;
+  public fps: number = 0;
 
   constructor() {
     this.renderCanvas = document.querySelector<HTMLCanvasElement>("#render")!;
@@ -46,7 +51,7 @@ export default class Main {
     // main listeners
 
     document.addEventListener("DOMContentLoaded", this.resize.bind(this));
-    document.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener("resize", this.resize.bind(this));
 
     const geometry = new three.BoxGeometry();
     const material = new three.MeshBasicMaterial({ color: 0x00ff00 });
@@ -55,12 +60,19 @@ export default class Main {
 
     this.camera.position.z = 5;
 
-    this.animate();
+    new FpsHud()
+
+    this.animate(0);
   }
 
-  public animate() {
+  public animate(time: number) {
+    const delta = time - this.lastFrame;
+    this.lastFrame = time;
+    this.fps = 1000 / delta;
+
     requestAnimationFrame(this.animate.bind(this));
     this.renderer.render(this.scene, this.camera);
+    HudManager.instance.render()
   }
 
   public resize() {

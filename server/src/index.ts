@@ -9,7 +9,11 @@ const port = 3001
 
 const app = express()
 const server = http.createServer(app)
-const socket = new Server<ClientToServerEvents, ServerToClientEvents>(server)
+const socket = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
+    cors: {
+        origin: '*',
+    },
+})
 
 app.disable("x-powered-by")
 
@@ -26,6 +30,6 @@ server.listen(port, () => {
 app.get("/config", (req, res) => {
     res.json({
         port,
-        host: "localhost"
+        host: "localhost:3001"
       })
 })

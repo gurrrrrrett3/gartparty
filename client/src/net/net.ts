@@ -11,9 +11,8 @@ export default class Net {
 
   private async init() {
 
-    const config = await fetch((globalThis as any).DEBUG ? "http://localhost:3001/config" : "/config").then(async (res) => await res.json())
-
-    this.socket = io(config);
+    this.socket = io("http://localhost:3001/", {
+    });
 
     this.socket.on("connect", () => {
       Logger.info("Net", "Connected to server");
